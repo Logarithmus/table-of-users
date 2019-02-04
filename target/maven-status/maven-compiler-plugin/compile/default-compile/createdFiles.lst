@@ -1,12 +1,3 @@
-socialcrud/api/ApiBinding$1.class
-socialcrud/api/facebook/Feed.class
-socialcrud/api/facebook/Post.class
 socialcrud/Application.class
 socialcrud/OAuth2SecurityConfig.class
-socialcrud/api/ApiBinding.class
 socialcrud/GreetingController.class
-socialcrud/api/facebook/Profile.class
-socialcrud/HomeController.class
-socialcrud/api/facebook/Facebook.class
-socialcrud/api/ApiBinding$2.class
-socialcrud/SocialConfig.class
