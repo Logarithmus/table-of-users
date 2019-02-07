@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Users demo</title>
+
+    <link rel="stylesheet" href="/css/users.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <!-- Font for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+
+    <div class="container mt-4">
+      <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group" role="group">
+          
+          <button type="button" class="btn btn-danger" style="width: 5em;">
+            <span class="fa fa-lock"></span>
+          </button>
+          <button type="button" class="btn btn-success" style="width: 5em;">
+            <span class="fa fa-unlock"></span>
+          </button>
+          <button type="button" class="btn btn-secondary" style="width: 5em;">
+            <span class="fa fa-trash"></span>
+          </button>
+
+          <form th:action="@{/logout}" method="POST">
+            <button class="btn btn-primary btn-logout" type="submit">Log out</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="width: 1em">
+                  <input type="checkbox" onClick="toggleCheckboxes(this)">
+                </th>
+                <th scope="col">Provider</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">First login</th>
+                <th scope="col">Last login</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <form action="/users/"
+              <th:block th:each="user: ${users}">
+                <tr>
+                  <th scope="row">
+                    <input type="checkbox" name="checkbox" th:id="${user.id}">
+                  </th>
+                  <td th:text="${user.provider}"></td>
+                  <td th:text="${user.profileId}"></td>
+                  <td th:text="${user.name}"></td>
+                  <td th:text="${#dates.format(user.firstLogin, 'dd.MM.yyyy HH:mm')}"></td>
+                  <td th:text="${#dates.format(user.lastLogin, 'dd.MM.yyyy HH:mm')}"></td>
+                  <td th:text="${user.isActive} ? 'Active' : 'Banned'"></td>
+                </tr>
+              </th:block>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      function toggleCheckboxes(source) {
+        let checkboxes = document.getElementsByName("checkbox");
+        checkboxes.forEach(checkbox => {checkbox.checked = source.checked});
+      }
+    </script>
+
+  </body>
+</html>

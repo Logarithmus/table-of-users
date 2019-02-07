@@ -1,0 +1,21 @@
+/*.table th {
+  text-align: center;   
+}
+*/
+
+.btn-group .btn:first-child,
+.btn-group .btn:last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-logout {
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+/*.btn:active:focus, .btn:focus {
+  outline: 0 !important;
+  box-shadow: none  !important;
+}
+*/

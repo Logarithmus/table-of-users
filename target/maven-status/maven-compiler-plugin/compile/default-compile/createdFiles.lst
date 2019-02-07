@@ -1,3 +1,6 @@
 socialcrud/Application.class
-socialcrud/OAuth2SecurityConfig.class
-socialcrud/GreetingController.class
+socialcrud/OAuth2Configuration.class
+socialcrud/controllers/LoginController.class
+socialcrud/ClientResources.class
+socialcrud/UserRepository.class
+socialcrud/User.class
