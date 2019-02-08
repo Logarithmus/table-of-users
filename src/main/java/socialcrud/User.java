@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
@@ -17,9 +18,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class User {
 	@Id
-	@Column(name = "USER_ID",unique=true,columnDefinition="VARCHAR(64)")
-	private String id;
-	
+	@Column(columnDefinition = "VARCHAR(64)")
+    private String id;
     private String provider; // Facebook, Google, GitHub, etc.
 	private String name;
     
@@ -28,5 +28,5 @@ public class User {
     private Timestamp firstLogin;
     
     private Timestamp lastLogin;
-    private Boolean isActive;
+    private Boolean isBanned;
 }

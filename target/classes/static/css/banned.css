@@ -1,0 +1,22 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+}
+
+.alert
+{
+  border-radius: 0.75rem !important;
+}
+
+.alert {
+  vertical-align: middle !important;
+  font-size: 200%;
+  margin: 0 auto;
+}
+

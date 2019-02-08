@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Users demo</title>
+    <title>Users</title>
 
     <link rel="stylesheet" href="/css/users.css">
     <!-- Bootstrap core CSS -->
@@ -12,68 +12,74 @@
   </head>
 
   <body>
+    <form th:action="@{/logout}" method="POST" id="logoutForm" style="display: none;"></form>
 
     <div class="container mt-4">
-      <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group" role="group">
-          
-          <button type="button" class="btn btn-danger" style="width: 5em;">
-            <span class="fa fa-lock"></span>
-          </button>
-          <button type="button" class="btn btn-success" style="width: 5em;">
-            <span class="fa fa-unlock"></span>
-          </button>
-          <button type="button" class="btn btn-secondary" style="width: 5em;">
-            <span class="fa fa-trash"></span>
-          </button>
+      <form th:action="@{/users}" method="POST">
+        <div class="btn-toolbar" role="toolbar">
+          <div class="btn-group" role="group">
+            <button type="submit" name="action" value="ban"
+                    class="btn btn-danger" style="width: 5em;" title="Ban">
+              <span class="fa fa-lock"></span>
+            </button>
+            <button type="submit" name="action" value="unban"
+            class="btn btn-success" style="width: 5em;" title="Unban">
+              <span class="fa fa-unlock"></span>
+            </button>
+            <button type="submit" name="action" value="delete"
+            class="btn btn-secondary" style="width: 5em;" title="Delete">
+              <span class="fa fa-trash"></span>
+            </button>
+            <button type="submit" form="logoutForm" class="btn btn-primary">Log out</button>
+          </div>
+        </div>
 
-          <form th:action="@{/logout}" method="POST">
-            <button class="btn btn-primary btn-logout" type="submit">Log out</button>
-          </form>
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" style="width: 1em">
+                    <input type="checkbox" value="on" onClick="toggleCheckboxes(this)">
+                  </th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Provider</th>
+                  <th scope="col">Profile ID</th>
+                  <th scope="col">First login</th>
+                  <th scope="col">Last login</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <form action="/users/"
+                <th:block th:each="user: ${users}">
+                  <tr>
+                    <th scope="row">
+                      <input type="checkbox" name="checkbox" th:value="${user.id}">
+                    </th>
+                    <td>
+                      <span th:text="${user.name}"></span>
+                      <span th:if="${user.id == currentUserId}">
+                        <span style="color: green;">(You)</span>
+                      </span>
+                    </td>
+                    <td th:text="${user.provider}"></td>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${#dates.format(user.firstLogin, 'dd.MM.yyyy HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(user.lastLogin, 'dd.MM.yyyy HH:mm:ss')}"></td>
+                    <td>
+                      <font th:text="${user.isBanned} ? 'Banned' : 'Active'"
+                            th:color="${user.isBanned} ? 'red' : 'green'">
+                      </font>
+                    </td>
+                  </tr>
+                </th:block>
+              </tbody>
+          </table>
         </div>
       </div>
+    </form>
 
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col" style="width: 1em">
-                  <input type="checkbox" onClick="toggleCheckboxes(this)">
-                </th>
-                <th scope="col">Provider</th>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">First login</th>
-                <th scope="col">Last login</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <form action="/users/"
-              <th:block th:each="user: ${users}">
-                <tr>
-                  <th scope="row">
-                    <input type="checkbox" name="checkbox" th:id="${user.id}">
-                  </th>
-                  <td th:text="${user.provider}"></td>
-                  <td th:text="${user.profileId}"></td>
-                  <td th:text="${user.name}"></td>
-                  <td th:text="${#dates.format(user.firstLogin, 'dd.MM.yyyy HH:mm')}"></td>
-                  <td th:text="${#dates.format(user.lastLogin, 'dd.MM.yyyy HH:mm')}"></td>
-                  <td th:text="${user.isActive} ? 'Active' : 'Banned'"></td>
-                </tr>
-              </th:block>
-            </tbody>
-        </table>
-      </div>
-    </div>
-
-    <script>
-      function toggleCheckboxes(source) {
-        let checkboxes = document.getElementsByName("checkbox");
-        checkboxes.forEach(checkbox => {checkbox.checked = source.checked});
-      }
-    </script>
+    <script src="/js/users.js"></script>
 
   </body>
 </html>
