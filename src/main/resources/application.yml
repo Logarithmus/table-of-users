@@ -1,3 +1,15 @@
+#debug: true
+
+#logging:
+#  file: spring.log
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+#      hibernate: DEBUG
+#      eclipse:
+#        jetty: DEBUG
+
 server:
   port: 8443
   ssl:
@@ -59,10 +71,15 @@ security:
 
 spring:
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create
+
   datasource:
-    url: jdbc:mysql://localhost:3306/socialcrud
-    driver-class-name: com.mysql.jdbc.Driver
-    username: springuser
-    password: SpringPass
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+  
+  thymeleaf:
+    cache: false
